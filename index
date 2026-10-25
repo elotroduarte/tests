@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tests</title>
+<meta name="description" content="Tests interactivos.">
+<style>
+:root{--bg:#e8ecf0;--card:#ffffff;--ink:#111b26;--muted:#56636f;--line:#c9d1d9;--accent:#b3261e}
+@media (prefers-color-scheme: dark){
+  :root{color-scheme:dark;--bg:#0e161e;--card:#17222d;--ink:#e7ecf1;--muted:#9aa8b5;--line:#2c3b49;--accent:#ff7468}
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);
+  font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  display:flex;justify-content:center;padding:28px 16px 40px}
+main{width:100%;max-width:640px}
+h1{font-size:clamp(28px,6vw,38px);line-height:1.15;font-weight:700;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 22px}
+.list{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.list a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:18px 20px;color:inherit;text-decoration:none;transition:border-color .15s}
+.list a:hover{border-color:var(--accent)}
+.list a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.name{display:block;font-size:20px;font-weight:700;line-height:1.3}
+.desc{display:block;color:var(--muted);margin-top:4px;font-size:16px}
+@media (prefers-reduced-motion:reduce){.list a{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Tests</h1>
+  <p class="sub">Elija un test y descubra su resultado.</p>
+
+  <ul class="list">
+    <li>
+      <a href="espia/">
+        <span class="name">¿Qué grado de espía es usted?</span>
+        <span class="desc">Cinco preguntas para saber si es aprendiz, clásico o agencia estatal.</span>
+      </a>
+    </li>
+
+    <!-- PARA AGREGAR OTRO TEST: copie el bloque <li> ... </li> de arriba,
+         péguelo aquí debajo y cambie "espia/" por el nombre de la carpeta
+         del nuevo test, además del título y la descripción. -->
+  </ul>
+</main>
+</body>
+</html>
