@@ -77,6 +77,8 @@ h2{font-size:20px;line-height:1.35;font-weight:600;margin:0 0 18px}
   <a class="back" href="../">Ver más tests</a>
 </main>
 
+  <script data-goatcounter="https://elotroduarte.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
 <script>
 /* ============================================================
    TEXTOS DEL TEST: aquí puede editar preguntas, respuestas y
@@ -180,6 +182,9 @@ function finish() {
   $("score").textContent = "Sumó " + total + " puntos de " + (QUESTIONS.length * 3) + ".";
   $("text").textContent = res.text;
   $("result").hidden = false;
+    if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({ path: "monstruos-completado", title: "Test monstruos completado", event: true });
+  }
   window.scrollTo(0, 0);
 }
 
