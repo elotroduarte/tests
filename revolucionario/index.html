@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Qué tipo de revolucionario es usted?</title>
+<meta name="description" content="Cinco preguntas para descubrir qué tipo de revolucionario habita en su interior.">
+<meta property="og:title" content="¿Qué tipo de revolucionario es usted?">
+<meta property="og:description" content="Cinco preguntas para descubrir qué tipo de revolucionario habita en su interior.">
+<meta property="og:type" content="website">
+<style>
+:root{
+  --bg:#e8ecf0; --card:#ffffff; --ink:#111b26; --muted:#56636f; --line:#c9d1d9;
+  --accent:#b3261e; --accent-ink:#ffffff; --pick:#fbeceb;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme:dark;
+    --bg:#0e161e; --card:#17222d; --ink:#e7ecf1; --muted:#9aa8b5; --line:#2c3b49;
+    --accent:#ff7468; --accent-ink:#1a0b09; --pick:#2b1f22;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);
+  font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  display:flex;justify-content:center;padding:28px 16px 40px}
+main{width:100%;max-width:640px}
+h1{font-size:clamp(28px,6vw,38px);line-height:1.15;font-weight:700;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px 22px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.count{color:var(--muted);font-size:14px;margin:0 0 18px}
+h2{font-size:20px;line-height:1.35;font-weight:600;margin:0 0 18px}
+.opts{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.opt{width:100%;text-align:left;font:inherit;color:inherit;background:transparent;
+  border:1.5px solid var(--line);border-radius:8px;padding:13px 14px;cursor:pointer;
+  display:flex;gap:12px;align-items:flex-start;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--accent)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.opt.sel{border-color:var(--accent);background:var(--pick)}
+.letter{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid currentColor;
+  display:grid;place-items:center;font-weight:600;font-size:14px;margin-top:1px}
+.opt.sel .letter{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.stamp{display:inline-block;font-size:clamp(22px,5.5vw,30px);line-height:1.15;font-weight:700;
+  color:var(--accent);border:3px solid var(--accent);border-radius:6px;padding:8px 14px;
+  transform:rotate(-2deg);margin:4px 0 18px}
+.score{color:var(--muted);margin:0 0 14px;font-size:15px}
+.text{margin:0 0 22px;max-width:60ch}
+.btn{font:inherit;font-weight:600;background:var(--accent);color:var(--accent-ink);border:0;
+  border-radius:8px;padding:12px 20px;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.back{display:inline-block;margin-top:20px;color:var(--muted);font-size:15px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){.bar i,.opt{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>¿Qué tipo de revolucionario es usted?</h1>
+  <p class="sub">Cinco preguntas. Responda con sinceridad: aquí nadie lo está vigilando (o eso creemos).</p>
+
+  <section class="card" id="quiz" aria-live="polite">
+    <div class="bar" aria-hidden="true"><i id="fill"></i></div>
+    <p class="count" id="count"></p>
+    <h2 id="q"></h2>
+    <ul class="opts" id="opts"></ul>
+  </section>
+
+  <section class="card" id="result" hidden aria-live="polite">
+    <div class="stamp" id="level"></div>
+    <p class="score" id="score"></p>
+    <p class="text" id="text"></p>
+    <button class="btn" id="again" type="button">Hacer el test de nuevo</button>
+  </section>
+
+  <a class="back" href="../">Ver más tests</a>
+</main>
+<script data-goatcounter="https://elotroduarte.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script>
+/* ============================================================
+   TEXTOS DEL TEST: aquí puede editar preguntas, respuestas y
+   resultados. Respete las comillas " " y las comas al final
+   de cada elemento.
+   Las respuestas van en orden: la primera vale 1 punto (A),
+   la segunda 2 puntos (B) y la tercera 3 puntos (C).
+   ============================================================ */
+var QUESTIONS = [
+  { q: "Camina usted por la calle y se encuentra con un grupo grande de personas haciendo bola en la banqueta, como los que estorban mientras esperan mesa en un restaurante. Al llegar hasta ellos, usted: 
+",
+    a: [
+      "Saca el pecho, se prepara y busca el sitio donde esté parado el que se vea más bravo y por ahí mero se abre paso y que sea lo que dios quiera.",
+      "Usted se empieza a abrir camino entre las personas y en voz alta comienza una perorata sobre el egoísmo contemporáneo y la falta de empatía con los demás.",
+      "Usted se frena, les grita a todos en el mejor estilo Javier Aguirre alguna maldición, algún chiste para que se organicen y dejen un espacio para que la gente pase."
+    ] },
+  { q: "Imagine usted que vive en un edificio, o quizá vive usted en uno. Son muchos departamentos. Y llega el mensaje convocando a la temida junta vecinal. Usted… ",
+    a: [
+      "Siente que llegó la navidad. Saca su lista de agravios, imprime las fotografías que había tomado y se pone zapato cómodo para pasar varias horas de pie.",
+      "Si puede y coincide con su hora de regreso a casa, igual se da una vuelta. Pero, ya que está ahí, se enfrasca en argumentos y en una de esas hasta tesorero se vuelve.",
+      "Usted responde que no cree en la administración jerarquizada, propone alguna nueva forma de organización, invoca cooperativas y modelos horizontales."
+    ] },
+  { q: "Está usted enfrascada o enfrascado en una discusión de esas buenas con algún familiar, con su padre o su madre, de las que pintan para ser nucleares. Cuál suele ser su arma de elección?",
+    a: [
+      "Usa la información secreta en contra de su adversario: eso que le contaron en confidencia, es momento de volverlo granada de fragmentación.",
+      "Lo suyo, lo suyo es ser pasivo agresivo, esos comentarios mordaces y dejados ahí como minas antipersonales.",
+      "Usted prefiere la argumentación laberíntica, la finta, el destanteó y la confusión al punto de que su oponente termine pidiéndole disculpas sin saber por qué."
+    ] },
+  { q: "La cosa anda difícil, hay que buscarse empleos alternativos, nuevas maneras de ganarse la vida. ¿Cuál es más probable que sea el género de autoempleo que busque usted? 
+",
+    a: [
+      "La venta por catálogo de todo tipo: perfumes, cosas de plástico, ropa, tiempos compartidos incluso.",
+      "La industria del servicio: manejar autos de aplicación, vender comida o arte, hacerla de fotógrafo de eventos.",
+      "Uy, viajo con una maleta solo para mis dispositivos. Si pudiera, les compraba boleto para que vayan en su propio asiento.Ofrecer su sabiduría en forma de curso, taller, diplomado, seminario..."
+    ] },
+  { q: "Es viernes, es hora del almuerzo en la oficina. Se está armando una excursión al mercadito cercano. Hay muchas posibilidades de puestos dónde comer. Se sabe que el antojo del día es variable, pero en general suele ir por:",
+    a: [
+      "La barbacha, las carnitas, o en si anda cuidándose quizá unas flautas, guajolotas, quesadillas fritas.",
+      "Somos hijos del maíz, usted va por lo que sea que haya en el comal: un tlacoyo, un sope, o una quesadilla pero sin aceite.",
+      "Vario tipo de jugos, que el vampiro, el antigripal, el verde, o si anda de humor un coctel de frutas con chantilly."
+    ] }
+];
+
+/* RESULTADOS: "max" es el puntaje máximo que corresponde a cada uno.
+   Con 5 preguntas el total va de 5 a 15:
+   hasta 8 = primer resultado, de 9 a 11 = segundo, de 12 a 15 = tercero. */
+var RESULTS = [
+  { max: 8, level: "Revoltoso/a",
+    text: "Usted es lo que llamaríamos un revoltoso, una revoltosa. Lo suyo no es el cambio político, ni la caída de los sistemas. Más bien lo que a usted le gusta es el argüende, un sabroso griterío. Usted es una artista a la hora de decir “poresooooo”. Le recomendamos que use su poder para el bien: grítele a los mal estacionados, hágasela de pedo a las que se meten en la fila para subir al metro. Ojo que luego la están filmando." },
+  { max: 11, level: "El clásico",
+    text: "Usted es el revolucionario clásico, el que no está dispuesto a tolerarle a la realidad sus cosas y sabe que eso solo se resuelve aventándole arena al motor. Usted se compró los lentes y la chamarra de Tyler Durden, quizá tuvo entre sus cosas una boinita con estrella roja. Nomás no se nos vaya a poner dictatorial, porque ya sabe que esa es la pata de la que cojea esta revolucionaria mesa." },
+  { max: 15, level: "Agencia estatal de espionaje",
+    text: "Usted es el revolucionario o la revolucionaria de conciencias. Usted no quiere mancharse las manos con la sucia realidad. El campo de batalla para usted es el del profesor Xavier. Cuando está conectado y en sus mejores días, al voluntad de los demás se vuelve papilla entre sus manos. Aguas porque usted está a un paso de ser líder de secta o de que la acusen de ser bruja y amenacen con quemarla." }
+];
+
+/* ===== A partir de aquí no hace falta tocar nada ===== */
+var LETTERS = ["A", "B", "C"];
+var current = 0, points = [];
+var $ = function (id) { return document.getElementById(id); };
+
+function show() {
+  var item = QUESTIONS[current];
+  $("count").textContent = "Pregunta " + (current + 1) + " de " + QUESTIONS.length;
+  $("fill").style.width = (current / QUESTIONS.length * 100) + "%";
+  $("q").textContent = item.q;
+  var list = $("opts");
+  list.innerHTML = "";
+  item.a.forEach(function (txt, i) {
+    var li = document.createElement("li");
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "opt";
+    var l = document.createElement("span");
+    l.className = "letter";
+    l.textContent = LETTERS[i];
+    var s = document.createElement("span");
+    s.textContent = txt;
+    b.appendChild(l);
+    b.appendChild(s);
+    b.addEventListener("click", function () { choose(b, i + 1); });
+    li.appendChild(b);
+    list.appendChild(li);
+  });
+}
+
+function choose(btn, value) {
+  var all = document.querySelectorAll(".opt");
+  for (var i = 0; i < all.length; i++) { all[i].disabled = true; }
+  btn.classList.add("sel");
+  points.push(value);
+  setTimeout(function () {
+    current++;
+    if (current < QUESTIONS.length) { show(); } else { finish(); }
+  }, 350);
+}
+
+function finish() {
+  var total = points.reduce(function (a, b) { return a + b; }, 0);
+  var res = RESULTS.filter(function (r) { return total <= r.max; })[0];
+  $("fill").style.width = "100%";
+  $("quiz").hidden = true;
+  $("level").textContent = res.level;
+  $("score").textContent = "Sumó " + total + " puntos de " + (QUESTIONS.length * 3) + ".";
+  $("text").textContent = res.text;
+  $("result").hidden = false;
+    if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({ path: "revolucionario-completado", title: "Test revolucionario completado", event: true });
+  }
+  window.scrollTo(0, 0);
+}
+
+$("again").addEventListener("click", function () {
+  current = 0; points = [];
+  $("result").hidden = true;
+  $("quiz").hidden = false;
+  show();
+});
+
+show();
+</script>
+</body>
+</html>
